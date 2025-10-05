@@ -1,0 +1,65 @@
+import os
+
+folder = os.path.expanduser("~/Documents")
+if not os.path.exists(folder):
+    os.makedirs(folder)
+
+def register_student():
+    print("\nREGISTER STUDENT")
+    studentno = input("Enter student no.: ")
+    fullname = input("Enter full name: ")
+    program = input("Enter program: ")
+    age = input("Enter age: ")
+    gender = input("Enter gender: ")
+    bday = input("Enter birthday (MM/DD/YYYY): ")
+    contact = input("Enter contact no.: ")
+
+    record = (
+        f"Student No.: {studentno}\n"
+        f"Full Name: {fullname}\n"
+        f"Program: {program}\n"
+        f"Age: {age}\n"
+        f"Gender: {gender}\n"
+        f"Birthday: {bday}\n"
+        f"Contact: {contact}\n"
+    )
+
+    filename = os.path.join(folder, f"{studentno}.txt")
+    with open(filename, "w") as file:
+        file.write(record)
+
+    print("\nStudent record saved successfully!")
+
+def open_student_records():
+    print("\nOPEN STUDENT RECORD")
+    studentno = input("Enter student no. to view: ")
+    filename = os.path.join(folder, f"{studentno}.txt")
+
+    if not os.path.exists(filename):
+        print("\nNo record found for that student number.")
+        return
+
+    print("\n--- STUDENT INFORMATION ---")
+    with open(filename, "r") as file:
+        print(file.read())
+
+def main():
+    while True:
+        print("\n===== STUDENT RECORD MENU =====")
+        print("1. Register Student")
+        print("2. Open Student Record")
+        print("3. Exit")
+        choice = input("Enter your choice: ")
+
+        if choice == "1":
+            register_student()
+        elif choice == "2":
+            open_student_records()
+        elif choice == "3":
+            print("\nThank you! byeee!!!")
+            break
+        else:
+            print("\nInvalid choice. Please try again.")
+
+if __name__ == "__main__":
+    main()
